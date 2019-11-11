@@ -1,0 +1,97 @@
+{
+	"name": "CapacityPlanningProcessedADL",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureDataLakeStoreLinkedService",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"SliceStart": {
+				"type": "String"
+			}
+		},
+		"annotations": [],
+		"type": "AzureDataLakeStoreFile",
+		"structure": [
+			{
+				"name": "SnapshotDate",
+				"type": "DateTime"
+			},
+			{
+				"name": "Created",
+				"type": "DateTime"
+			},
+			{
+				"name": "DropId",
+				"type": "String"
+			},
+			{
+				"name": "Branch",
+				"type": "String"
+			},
+			{
+				"name": "Flavor",
+				"type": "String"
+			},
+			{
+				"name": "DropName",
+				"type": "String"
+			},
+			{
+				"name": "SizeInMiB",
+				"type": "Int32"
+			},
+			{
+				"name": "BuildGuid",
+				"type": "String"
+			},
+			{
+				"name": "OnPremPool",
+				"type": "String"
+			},
+			{
+				"name": "OnPremExpirationRedmond",
+				"type": "DateTime"
+			},
+			{
+				"name": "OnPremExpirationQuincy",
+				"type": "DateTime"
+			},
+			{
+				"name": "OnPremExpirationCheyenne",
+				"type": "DateTime"
+			},
+			{
+				"name": "OnPremExpirationServerDogfood",
+				"type": "DateTime"
+			},
+			{
+				"name": "CloudPool",
+				"type": "String"
+			},
+			{
+				"name": "CloudExpirationMicrosoft",
+				"type": "DateTime"
+			},
+			{
+				"name": "CloudExpirationDevDiv",
+				"type": "DateTime"
+			},
+			{
+				"name": "CloudExpirationSymbols",
+				"type": "DateTime"
+			}
+		],
+		"typeProperties": {
+			"format": {
+				"type": "TextFormat",
+				"treatEmptyAsNull": true
+			},
+			"folderPath": {
+				"value": "@concat('ProcessedCapacityPlanning/', formatDateTime(dataset().SliceStart, 'yyyy'), '-', formatDateTime(dataset().SliceStart, 'MM'), '-', formatDateTime(dataset().SliceStart, 'dd'), '.csv')",
+				"type": "Expression"
+			}
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}
