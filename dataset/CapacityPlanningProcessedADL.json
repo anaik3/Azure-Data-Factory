@@ -1,0 +1,29 @@
+{
+	"name": "CapacityPlanningProcessedADL",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureDataLakeStoreLinkedService",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"SliceStart": {
+				"type": "string"
+			}
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureDataLakeStoreLocation",
+				"folderPath": {
+					"value": "@concat('ProcessedCapacityPlanning/', formatDateTime(dataset().SliceStart, 'yyyy'), '-', formatDateTime(dataset().SliceStart, 'MM'), '-', formatDateTime(dataset().SliceStart, 'dd'), '.csv')",
+					"type": "Expression"
+				}
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"quoteChar": "\""
+		},
+		"schema": []
+	}
+}
