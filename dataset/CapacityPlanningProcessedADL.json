@@ -21,6 +21,7 @@
 				}
 			},
 			"columnDelimiter": ",",
+			"rowDelimiter": "\r",
 			"escapeChar": "\\",
 			"quoteChar": "\""
 		},
