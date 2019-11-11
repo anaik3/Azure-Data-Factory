@@ -1,0 +1,49 @@
+{
+	"name": "CapacityPlanningProcessedDataSummary",
+	"properties": {
+		"annotations": []
+	},
+	"type": "DataLakeAnalyticsU-SQL",
+	"dependsOn": [],
+	"policy": {
+		"timeout": "06:00:00",
+		"retry": 2,
+		"retryIntervalInSeconds": 30
+	},
+	"userProperties": [],
+	"typeProperties": {
+		"scriptPath": "artifactservicescripts\\CapacityPlanning\\ExtractProcessTransformCapacityRawData.usql",
+		"degreeOfParallelism": 10,
+		"priority": 1,
+		"scriptLinkedService": {
+			"referenceName": "AzureStorageLinkedService",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"in_path": {
+				"value": "@concat('/CapacityPlanningData/')",
+				"type": "Expression"
+			},
+			"out_path": {
+				"value": "@concat('/ProcessedCapacityPlanning/',formatDateTime(pipeline().parameters.WindowStart, 'yyyy'),'-',formatDateTime(pipeline().parameters.WindowStart, 'MM'),'-',formatDateTime(pipeline().parameters.WindowStart, 'dd'),'.csv')",
+				"type": "Expression"
+			},
+			"snapShotDate": {
+				"value": "@concat(formatDateTime(pipeline().parameters.WindowStart, 'yyyy'),'-',formatDateTime(pipeline().parameters.WindowStart, 'MM'),'-',formatDateTime(pipeline().parameters.WindowStart, 'dd'))",
+				"type": "Expression"
+			},
+			"CSDFilterDate": {
+				"value": "@concat(formatDateTime(pipeline().parameters.WindowStart, 'yyyy'),'-',formatDateTime(pipeline().parameters.WindowStart, 'MM'),'-',formatDateTime(pipeline().parameters.WindowStart, 'dd'))",
+				"type": "Expression"
+			},
+			"out_path_csd": {
+				"value": "@concat('/ViewsCapacityPlanning/CSD/',formatDateTime(pipeline().parameters.WindowStart, 'yyyy'),'-',formatDateTime(pipeline().parameters.WindowStart, 'MM'),'-',formatDateTime(pipeline().parameters.WindowStart, 'dd'),'.csv')",
+				"type": "Expression"
+			}
+		}
+	},
+	"linkedServiceName": {
+		"referenceName": "AzureDataLakeAnalyticsLinkedService",
+		"type": "LinkedServiceReference"
+	}
+}
